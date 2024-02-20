@@ -88,7 +88,7 @@ class _SOSButtonState extends State<SOSButton> with SingleTickerProviderStateMix
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      backgroundColor: const Color.fromARGB(237, 233, 125, 71),
+      backgroundColor: Colors.blueGrey,
       content: SizedBox(
         width: MediaQuery.of(context).size.width-20,
         height: MediaQuery.of(context).size.height/8,),
@@ -169,7 +169,7 @@ class _SOSButtonState extends State<SOSButton> with SingleTickerProviderStateMix
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
       onTap: () {
-        // Burada mevcut konumunuzu alıp SOS mesajı gönderme işlemini tetikleyin
+        // Trigger the location fetching and SOS message sending process here
         _getCurrentLocation().then((position) {
           if (mounted) {
             setState(() {
@@ -183,10 +183,23 @@ class _SOSButtonState extends State<SOSButton> with SingleTickerProviderStateMix
       },
       child: ScaleTransition(
         scale: _buttonScale!,
-        child: const CircleAvatar(
-          radius: 80,
-          backgroundColor: Colors.red,
-          child: Icon(Icons.warning, size: 80, color: Colors.white),
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.3), // Adjust the color opacity
+                spreadRadius: 2, // Spread radius
+                blurRadius: 10, // Blur radius
+                offset: Offset(0, 16), // changes position of shadow
+              ),
+            ],
+          ),
+          child: const CircleAvatar(
+            radius: 80,
+            backgroundColor: Colors.red,
+            child: Icon(Icons.warning, size: 80, color: Colors.white),
+          ),
         ),
       ),
     );
@@ -199,8 +212,13 @@ class _SOSButtonState extends State<SOSButton> with SingleTickerProviderStateMix
         backgroundColor: Colors.blueGrey[300],
         elevation: 10,
         title: Text(
-          LocaleKeys.Profile_sosMobile_sosButton.tr(),
-          style: TextStyle(color: Colors.black87),
+          "SOS Button",
+          style: GoogleFonts.albertSans(
+            color: Colors.grey[900],
+            fontSize: 29,
+            fontWeight: FontWeight.bold,
+            height: 1.355,
+          )
         ),
         actions: [
           Padding(
@@ -243,17 +261,6 @@ class _SOSButtonState extends State<SOSButton> with SingleTickerProviderStateMix
               const SizedBox(
                 height: 30,
               ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  LocaleKeys.Profile_sosMobile_SOS.tr(),
-                  style: GoogleFonts.lato(
-                      fontSize: 96,
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 217, 0, 0)
-                  ),
-                ),
-              ),
               const SizedBox(
                 height: 20,
               ),
@@ -267,7 +274,7 @@ class _SOSButtonState extends State<SOSButton> with SingleTickerProviderStateMix
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 100,
               ),
               Align(
                 alignment: Alignment.bottomCenter,
