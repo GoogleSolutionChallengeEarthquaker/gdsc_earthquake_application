@@ -1,59 +1,60 @@
-import 'package:google_solution_challenge/translations/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-class IntroScreen2 extends StatelessWidget {
-  const IntroScreen2({super.key});
+import '../../translations/locale_keys.g.dart'; // Update the import path according to your project structure
+
+class IntroScreen2 extends StatefulWidget {
+  const IntroScreen2({Key? key}) : super(key: key);
 
   @override
+  State<IntroScreen2> createState() => _IntroScreen2State();
+}
+
+class _IntroScreen2State extends State<IntroScreen2> {
+  @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    return Container(
-      color: Colors.grey[300],
-      child: Padding(
-        padding: EdgeInsets.only(top: height * 0.12),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              height: height * 0.33, // Ekran yüksekliğinin üçte biri kadar yükseklik
-              width: double.infinity, // Genişlik tüm ekranı kaplar
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/AR.jpg'),
-                  fit: BoxFit.cover, // Resmi genişliğe sığacak şekilde boyutlandırır
+    var screenHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+      backgroundColor: Colors.blueGrey[100], // Updated background color for a new look
+      body: SingleChildScrollView( // Added SingleChildScrollView for better responsiveness
+        child: Padding(
+          padding: EdgeInsets.only(top: screenHeight * 0.1), // Adjusted padding
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center, // Changed alignment for better layout control
+            children: [
+              Image.asset(
+                'assets/images/AR.jpg', // Updated image asset
+                height: screenHeight * 0.4, // Adjusted size
+                width: double.infinity,
+                fit: BoxFit.contain, // Changed BoxFit to 'contain' for a different effect
+              ),
+              const SizedBox(height: 20.0),
+              Text(
+                LocaleKeys.openingCards2Title.tr(),
+                textAlign: TextAlign.center, // Added text alignment for better readability
+                style: const TextStyle(
+                    fontFamily: "Lobster", // Changed font family for a new style
+                    fontSize: 28.0,
+                    color: Color(0xFF3A5160), // Updated color for a fresh look
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 15.0),
+              Padding( // Added padding for the text for better layout
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  LocaleKeys.openingCards2.tr(),
+                  textAlign: TextAlign.center, // Ensured text is centered
+                  style: const TextStyle(
+                    fontFamily: "Roboto", // Changed font family
+                    fontSize: 16.0,
+                    color: Colors.black54, // Softened color for better readability
+                    fontWeight: FontWeight.w400, // Adjusted font weight
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 5.0),
-            Text(
-              LocaleKeys.openingCards2Title.tr(),
-              style: const TextStyle(
-                  fontFamily: "Pacifico",
-                  fontSize: 35.0,
-                  color: Color(0xFF2C3E50), // Mavi RENK
-                  fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10.0),
-            Text(
-              LocaleKeys.openingCards2.tr(),
-              style: const TextStyle(
-                fontFamily: "Source Sans Pro",
-                fontSize: 18.0,
-                letterSpacing: 2.5,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
-            ),
-            SizedBox(
-              height: 30.0,
-              width: 200.0,
-              child: Divider(
-                color: Colors.grey.shade200,
-                thickness: 1,
-              ),
-            ),
-          ],
+              SizedBox(height: screenHeight * 0.05), // Adjusted spacing
+            ],
+          ),
         ),
       ),
     );

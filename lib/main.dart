@@ -1,5 +1,6 @@
 import 'package:google_solution_challenge/screens/login/auth_login.dart';
 import 'package:google_solution_challenge/screens/login/service/login_service.dart';
+import 'package:google_solution_challenge/screens/onboardingscreen.dart';
 import 'package:google_solution_challenge/translations/codegen_loader.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

@@ -25,11 +25,10 @@ class CodegenLoader extends AssetLoader{
 
     "opening_cards_1_title": "Help",
     "opening_cards_1": "You can help people in need\n by using the markers on the map",
-    "opening_cards_2_title": "AR",
-    "opening_cards_2": "Use AR technology to identify \n the safe spots in your room.",
-    "opening_cards_3": "You can donate money, \n blood or needs.",
+    "opening_cards_2_title": "AR and Object Detection",
+    "opening_cards_2": "Use AR technology to identify \n the safe spots in your room. And with object detection you can find risky objects in your room.",
     "opening_cards_4_title": "Map",
-    "opening_cards_4": "You can see the assembly areas.",
+    "opening_cards_4": "You can see the reports of missing persons and SOS calls using the map.",
 
     "Login_service_invalid_mail": "Invalid email.",
     "Login_service_invalid_password": "Invalid password.",
