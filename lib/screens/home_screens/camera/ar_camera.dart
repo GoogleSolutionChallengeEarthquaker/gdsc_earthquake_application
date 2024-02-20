@@ -13,6 +13,11 @@ import 'package:ar_flutter_plugin/models/ar_hittest_result.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vector_math/vector_math_64.dart' as math;
 
+
+
+//While creating this module, "https://github.com/CariusLars/ar_flutter_plugin/tree/main"
+//We inspired by the examples in this repository but The code below is completely created by us.
+
 class ObjectsOnPlanesWidget extends StatefulWidget {
   ObjectsOnPlanesWidget({Key? key}) : super(key: key);
   @override
