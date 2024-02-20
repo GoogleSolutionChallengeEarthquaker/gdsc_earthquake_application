@@ -77,7 +77,7 @@ class _MainPageState extends State<MainPage> {
               const Text(
                 "Earthquaker",
                 style: TextStyle(
-                    fontFamily: "Pacifico",
+                    fontFamily: "Quicksand",
                     fontSize: 46.0,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
