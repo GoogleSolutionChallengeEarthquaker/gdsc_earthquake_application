@@ -10,9 +10,7 @@ import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/datatypes/hittest_result_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:ar_flutter_plugin/models/ar_hittest_result.dart';
-import 'package:vector_math/vector_math_64.dart' as math;
-import 'package:google_fonts/google_fonts.dart';
-
+import 'package:vector_math/vector_math_64.dart';
 
 class ObjectsOnPlanesWidget extends StatefulWidget {
   ObjectsOnPlanesWidget({Key? key}) : super(key: key);
@@ -28,10 +26,7 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
   List<ARNode> nodes = [];
   List<ARAnchor> anchors = [];
 
-  double? xValue;
-  double? yValue;
-  double? zValue;
-  bool scaleSet = false;
+  double? scaleValue;
 
   @override
   void dispose() {
@@ -43,49 +38,7 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            "Triangle of Life",
-            style: GoogleFonts.albertSans(
-              color: Colors.grey[900],
-              fontSize: 29,
-              fontWeight: FontWeight.bold,
-              height: 1.355,
-            )
-        ),
-        backgroundColor: Colors.blueGrey[300],
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context)=> SimpleDialog(
-                      title: Text("Triangle of Life Info"),
-                      contentPadding: const EdgeInsets.all(20.0),
-                      children: [
-                        Text("Displays triangle of life in your house."),
-                        TextButton(
-                          onPressed:() {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            "Close",
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        )
-                      ],
-
-                    )
-                );
-              },
-              child: const Icon(
-                Icons.info_outline,
-                color: Colors.black87,
-              ),
-            ),
-          )
-        ],
+        title: const Text('Triangle of Life'),
       ),
       body: Container(
         child: Stack(
@@ -104,8 +57,8 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
                     child: Text("Remove Everything"),
                   ),
                   ElevatedButton(
-                    onPressed: () => _showScaleInputDialog(context),
-                    child: Text("Set Scale"),
+                    onPressed: () => _showBMIInputDialog(context),
+                    child: Text("Update Height and Weight"),
                   ),
                 ],
               ),
@@ -116,34 +69,30 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
     );
   }
 
-  Future<void> _showScaleInputDialog(BuildContext context) async {
+  Future<void> _showBMIInputDialog(BuildContext context) async {
+    double? height;
+    double? weight;
+
     await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Enter Scale Values"),
+          title: Text("Enter Height and Weight"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: 'X Value'),
+                decoration: InputDecoration(labelText: 'Height (in meters)'),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  xValue = double.tryParse(value);
+                  height = double.tryParse(value);
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Y Value'),
+                decoration: InputDecoration(labelText: 'Weight (in kilograms)'),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  yValue = double.tryParse(value);
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Z Value'),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  zValue = double.tryParse(value);
+                  weight = double.tryParse(value);
                 },
               ),
             ],
@@ -157,13 +106,29 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
             ),
             TextButton(
               onPressed: () {
-                if (xValue != null && yValue != null && zValue != null) {
-                  scaleSet = true;
+                if (height != null && weight != null) {
+                  double bmi = calculateBMI(height!, weight!);
+
+                  if (bmi < 16) {
+                    scaleValue = 0.3;
+                  } else if (bmi >= 16 && bmi < 17) {
+                    scaleValue = 0.5;
+                  } else if (bmi >= 18.5 && bmi < 25) {
+                    scaleValue = 0.6;
+                  } else if (bmi >= 25 && bmi < 30) {
+                    scaleValue = 0.7;
+                  } else if (bmi >= 30 && bmi < 35) {
+                    scaleValue = 0.8;
+                  } else if (bmi >= 35 && bmi < 40) {
+                    scaleValue = 0.9;
+                  } else if (bmi > 40 ) {
+                    scaleValue = 1.0;
+                  };
                   Navigator.of(context).pop();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Please enter valid scale values'),
+                      content: Text('Please enter valid height and weight values'),
                     ),
                   );
                 }
@@ -174,6 +139,10 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
         );
       },
     );
+  }
+
+  double calculateBMI(double height, double weight) {
+    return weight / (height/100 * height/100);
   }
 
   void onARViewCreated(
@@ -198,21 +167,14 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
     this.arObjectManager!.onNodeTap = onNodeTapped;
   }
 
-  Future<void> onRemoveEverything() async {
-    anchors.forEach((anchor) {
-      this.arAnchorManager!.removeAnchor(anchor);
-    });
-    anchors = [];
-  }
-
   Future<void> onNodeTapped(List<String> nodes) async {
     var number = nodes.length;
     this.arSessionManager!.onError("Tapped $number node(s)");
   }
 
   Future<void> onPlaneOrPointTapped(List<ARHitTestResult> hitTestResults) async {
-    if (!scaleSet) {
-      await _showScaleInputDialog(context);
+    if (scaleValue == null) {
+      await _showBMIInputDialog(context);
     }
 
     var singleHitTestResult = hitTestResults.firstWhere(
@@ -220,7 +182,7 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
       orElse: () => throw Exception("No plane found"),
     );
     if (singleHitTestResult != null) {
-      var scale = math.Vector3(xValue ?? 1.0, yValue ?? 1.0, zValue ?? 1.0);
+      var scale = Vector3(scaleValue!, scaleValue!, scaleValue!);
       var newAnchor = ARPlaneAnchor(transformation: singleHitTestResult.worldTransform);
       bool? didAddAnchor = await this.arAnchorManager!.addAnchor(newAnchor);
       if (didAddAnchor!) {
@@ -229,8 +191,8 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
           type: NodeType.localGLTF2,
           uri: "assets/ar_models/Box.gltf",
           scale: scale,
-          position: math.Vector3(0.0, 0.0, 0.0),
-          rotation: math.Vector4(1.0, 0.0, 0.0, 0.0),
+          position: Vector3(0.0, 0.0, 0.0),
+          rotation: Vector4(1.0, 0.0, 0.0, 0.0),
         );
         bool? didAddNodeToAnchor = await this.arObjectManager!.addNode(newNode, planeAnchor: newAnchor);
         if (didAddNodeToAnchor!) {
@@ -242,5 +204,12 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
         this.arSessionManager!.onError("Adding Anchor failed");
       }
     }
+  }
+
+  Future<void> onRemoveEverything() async {
+    anchors.forEach((anchor) {
+      this.arAnchorManager!.removeAnchor(anchor);
+    });
+    anchors = [];
   }
 }
