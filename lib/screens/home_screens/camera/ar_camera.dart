@@ -10,7 +10,8 @@ import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/datatypes/hittest_result_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:ar_flutter_plugin/models/ar_hittest_result.dart';
-import 'package:vector_math/vector_math_64.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:vector_math/vector_math_64.dart' as math;
 
 class ObjectsOnPlanesWidget extends StatefulWidget {
   ObjectsOnPlanesWidget({Key? key}) : super(key: key);
@@ -38,8 +39,51 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Triangle of Life'),
-      ),
+        title: Text(
+            "Triangle of Life",
+            style: GoogleFonts.albertSans(
+              color: Colors.grey[900],
+              fontSize: 29,
+              fontWeight: FontWeight.bold,
+              height: 1.355,
+            )
+        ),
+      backgroundColor: Colors.blueGrey[300],
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context)=> SimpleDialog(
+                    title: Text("Triangle of Life Info"),
+                    contentPadding: const EdgeInsets.all(20.0),
+                    backgroundColor: Colors.blueGrey,
+                    children: [
+                      Text("Displays triangle of life in your house."),
+                      TextButton(
+                        onPressed:() {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          "Close",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      )
+                    ],
+
+                  )
+              );
+            },
+            child: const Icon(
+              Icons.info_outline,
+              color: Colors.black87,
+            ),
+          ),
+        )
+      ],
+    ),
       body: Container(
         child: Stack(
           children: [
@@ -182,7 +226,7 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
       orElse: () => throw Exception("No plane found"),
     );
     if (singleHitTestResult != null) {
-      var scale = Vector3(scaleValue!, scaleValue!, scaleValue!);
+      var scale = math.Vector3(scaleValue!, scaleValue!, scaleValue!);
       var newAnchor = ARPlaneAnchor(transformation: singleHitTestResult.worldTransform);
       bool? didAddAnchor = await this.arAnchorManager!.addAnchor(newAnchor);
       if (didAddAnchor!) {
@@ -191,8 +235,8 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
           type: NodeType.localGLTF2,
           uri: "assets/ar_models/Box.gltf",
           scale: scale,
-          position: Vector3(0.0, 0.0, 0.0),
-          rotation: Vector4(1.0, 0.0, 0.0, 0.0),
+          position: math.Vector3(0.0, 0.0, 0.0),
+          rotation: math.Vector4(1.0, 0.0, 0.0, 0.0),
         );
         bool? didAddNodeToAnchor = await this.arObjectManager!.addNode(newNode, planeAnchor: newAnchor);
         if (didAddNodeToAnchor!) {

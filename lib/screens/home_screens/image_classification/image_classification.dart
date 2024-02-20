@@ -6,6 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 
 
+// https://github.com/sagnikghoshcr7/animal_classification
+// We inspired from this classification project, we only implemented some parts of it.
+
 class ImageClassification extends StatefulWidget {
   const ImageClassification({super.key});
   @override
@@ -104,6 +107,7 @@ class _ImageClassificationState extends State<ImageClassification> {
                     builder: (context)=> SimpleDialog(
                       title: Text("Damage Classification"),
                       contentPadding: const EdgeInsets.all(20.0),
+                      backgroundColor: Colors.blueGrey,
                       children: [
                         Text("Classifies the damage type with given image."),
                         TextButton(
