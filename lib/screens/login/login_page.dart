@@ -37,7 +37,7 @@ class _MainPageState extends State<MainPage> {
       await audioPlayer.pause();
     } else {
       // Burada gerçek bir dosya yolu kullanın
-      await audioPlayer.play(AssetSource("sossound.mp3"));
+      await audioPlayer.play(AssetSource("earthquakeHelpSound.mp3"));
     }
     setState(() {
       isPlaying = !isPlaying;
