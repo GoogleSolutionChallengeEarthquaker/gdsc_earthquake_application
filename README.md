@@ -1,10 +1,11 @@
-# Earthquake Preparedness Flutter App
+# Google Solution Challenge Earthquake Preparedness Flutter App
 
-This Flutter application is designed to enhance earthquake preparedness and safety by providing users with real-time detection, risk assessments, and emergency guidelines. Utilizing TensorFlow Lite for advanced object detection and Firebase for robust authentication and data management, it aims to be an essential tool for anyone looking to improve their readiness for earthquakes.
+This Flutter application is designed to enhance earthquake preparedness and safety by providing users with real-time detection, risk assessments, and emergency guidelines. We designed this project for Google Solution Challenge. Utilizing TensorFlow Lite for advanced object detection and Firebase for robust authentication and data management, it aims to be an essential tool for anyone looking to improve their readiness for earthquakes.
 
 ## Features
 
-- **Real-Time Earthquake Detection:** Leveraging TensorFlow Lite to detect and alert users to seismic activities in real-time.
+- **Augmented Reality:** Using AR to detect the triangle of life inside different places.
+- **Real-Time Object Detection:** Leveraging TensorFlow Lite to detect and alert users to risky objects inside places in real-time.
 - **User Authentication:** Secure sign-up and sign-in functionality powered by Firebase.
 - **Risk Assessment:** Tools and resources to assess and mitigate earthquake risks.
 - **Preparedness Guidelines:** Comprehensive guidelines to prepare for, respond to, and recover from earthquakes.
