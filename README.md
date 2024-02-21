@@ -29,9 +29,10 @@ This Flutter application is designed to enhance earthquake preparedness and safe
 3. Install dependencies:
   ```sh
   flutter pub get
-
+   ```
 Usage
 Run the app on a connected device or emulator:
 
-  ```sh
-  flutter run
+```sh
+flutter run
+```
