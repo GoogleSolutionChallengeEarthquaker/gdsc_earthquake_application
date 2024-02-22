@@ -117,9 +117,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   const Text(
                     "Earthquaker",
                     style: TextStyle(
-                        fontFamily: "Pacifico",
-                        fontSize: 30.0,
-                        color: Colors.red,
+                        fontFamily: "Quicksand",
+                        fontSize: 46.0,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
