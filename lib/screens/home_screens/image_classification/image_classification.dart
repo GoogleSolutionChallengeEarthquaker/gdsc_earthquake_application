@@ -170,7 +170,7 @@ class _ImageClassificationState extends State<ImageClassification> {
                         // ignore: unnecessary_null_comparison
                         _output != null
                             ? Text(
-                          'The crack type is: ${_output[0]['label'].split(' ').sublist(1).join(' ')}',
+                          'The crack type  is: ${_output[0]['label'].split(' ').sublist(1).join(' ')}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
