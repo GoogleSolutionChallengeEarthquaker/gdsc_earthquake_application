@@ -31,7 +31,9 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
   List<ARNode> nodes = [];
   List<ARAnchor> anchors = [];
 
-  double? scaleValue;
+  double? scaleX;
+  double? scaleY;
+  double? scaleZ;
 
   @override
   void dispose() {
@@ -113,21 +115,45 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
               onPressed: () {
                 if (height != null && weight != null) {
                   double bmi = calculateBMI(height!, weight!);
+                  print('BMI: $bmi');
+                  if (height! < 50) {
+                    scaleX = 0.1;
+                  } else if (height! >= 50 && height! < 100) {
+                    scaleX = 0.2;
+                  } else if (height! >= 100 && height! < 150) {
+                    scaleX = 0.3;
+                  } else if (height! >= 150 && height! < 200) {
+                    scaleX = 0.4;
+                  } else if (height! > 200 ) {
+                    scaleX = 0.5;
+                  };
+
+                  if (weight! < 20) {
+                    scaleY = 0.1;
+                  } else if (weight! >= 20 && weight! < 40) {
+                    scaleY = 0.2;
+                  } else if (weight! >= 40 && weight! < 60) {
+                    scaleY = 0.3;
+                  } else if (weight! >= 60 && weight! < 80) {
+                    scaleY = 0.4;
+                  } else if (weight! >= 80 && weight! < 100) {
+                    scaleY = 0.5;
+                  };
 
                   if (bmi < 16) {
-                    scaleValue = 0.3;
+                    scaleZ = 0.3;
                   } else if (bmi >= 16 && bmi < 17) {
-                    scaleValue = 0.5;
+                    scaleZ = 0.5;
                   } else if (bmi >= 18.5 && bmi < 25) {
-                    scaleValue = 0.6;
+                    scaleZ = 0.6;
                   } else if (bmi >= 25 && bmi < 30) {
-                    scaleValue = 0.7;
+                    scaleZ = 0.7;
                   } else if (bmi >= 30 && bmi < 35) {
-                    scaleValue = 0.8;
+                    scaleZ = 0.8;
                   } else if (bmi >= 35 && bmi < 40) {
-                    scaleValue = 0.9;
+                    scaleZ = 0.9;
                   } else if (bmi > 40 ) {
-                    scaleValue = 1.0;
+                    scaleZ = 1.0;
                   };
                   Navigator.of(context).pop();
                 } else {
@@ -178,7 +204,7 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
   }
 
   Future<void> onPlaneOrPointTapped(List<ARHitTestResult> hitTestResults) async {
-    if (scaleValue == null) {
+    if (scaleX == null && scaleY == null && scaleZ == null) {
       await _showBMIInputDialog(context);
     }
 
@@ -187,7 +213,7 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
       orElse: () => throw Exception("No plane found"),
     );
     if (singleHitTestResult != null) {
-      var scale = Vector3(scaleValue!, scaleValue!, scaleValue!);
+      var scale = Vector3(scaleX!, scaleY!, scaleZ!);
       var newAnchor = ARPlaneAnchor(transformation: singleHitTestResult.worldTransform);
       bool? didAddAnchor = await this.arAnchorManager!.addAnchor(newAnchor);
       if (didAddAnchor!) {
