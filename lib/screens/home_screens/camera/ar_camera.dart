@@ -257,8 +257,7 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
       orElse: () => throw Exception("No plane found"),
     );
     if (singleHitTestResult != null) {
-      var scale = Vector3(scaleX!, scaleY!, scaleZ!);
-      var scale = math.Vector3(scaleValue!, scaleValue!, scaleValue!);
+      var scale = math.Vector3(scaleX!, scaleY!, scaleZ!);
       var newAnchor = ARPlaneAnchor(transformation: singleHitTestResult.worldTransform);
       bool? didAddAnchor = await this.arAnchorManager!.addAnchor(newAnchor);
       if (didAddAnchor!) {
