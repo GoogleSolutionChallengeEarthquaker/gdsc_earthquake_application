@@ -230,6 +230,7 @@ class _SOSButtonState extends State<SOSButton> with SingleTickerProviderStateMix
                     builder: (context)=> SimpleDialog(
                       title: Text("SOS Button Info"),
                       contentPadding: const EdgeInsets.all(20.0),
+                      backgroundColor: Colors.blueGrey,
                       children: [
                         Text("Use this when needed!"),
                         TextButton(

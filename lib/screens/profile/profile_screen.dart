@@ -106,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: DropdownButton<Language>(
               underline: const SizedBox(),
               icon: const Icon(
-                Icons.language,
+                Icons.flag,
                 color: Color.fromARGB(255, 123, 123, 123),
               ),
               onChanged: (Language? language) {
@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: IconButton(
               onPressed: signUserOut,
               icon: Icon(
-                Icons.logout,
+                Icons.exit_to_app_sharp,
                 color: Colors.grey.shade600,
               ),
             ),

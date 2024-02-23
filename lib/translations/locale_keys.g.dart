@@ -13,8 +13,6 @@ abstract class  LocaleKeys {
   static const openingCards1 = 'opening_cards_1';
   static const openingCards2Title = 'opening_cards_2_title';
   static const openingCards2 = 'opening_cards_2';
-  static const openingCards3Title = 'opening_cards_3_title';
-  static const openingCards3 = 'opening_cards_3';
   static const openingCards4Title = 'opening_cards_4_title';
   static const openingCards4 = 'opening_cards_4';
 

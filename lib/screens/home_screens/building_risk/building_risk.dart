@@ -84,6 +84,7 @@ class _BuildingInfoFormState extends State<BuildingInfoForm> {
                     builder: (context)=> SimpleDialog(
                       title: Text("Building Risk Controller"),
                       contentPadding: const EdgeInsets.all(20.0),
+                      backgroundColor: Colors.blueGrey,
                       children: [
                         Text("Controls the risk of the building with given information."),
                         TextButton(

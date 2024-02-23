@@ -195,6 +195,7 @@ class _MapUIStatecustom extends State<MapUIcustom> {
                     builder: (context)=> SimpleDialog(
                       title: Text("Maps"),
                       contentPadding: const EdgeInsets.all(20.0),
+                      backgroundColor: Colors.blueGrey,
                       children: [
                         Text("Shows missing person reports and SOS calls on the map."),
                         TextButton(

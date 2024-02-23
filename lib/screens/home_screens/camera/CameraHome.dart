@@ -6,6 +6,9 @@ import 'dart:math' as math;
 
 import 'camera.dart';
 import 'bindBox.dart';
+//https://github.com/ravindu9701/Real-Time-Object-Detection-Mobile
+
+// We inspired from this project to implement our project.
 
 const String ssd = "SSD MobileNet";
 const String yolo = "Tiny YOLOv2";
@@ -74,6 +77,7 @@ class _CameraHomePageState extends State<CameraHomePage> {
                     builder: (context)=> SimpleDialog(
                       title: Text("Object Detection"),
                       contentPadding: const EdgeInsets.all(20.0),
+                      backgroundColor: Colors.blueGrey,
                       children: [
                         Text("Detect objects and see if they are dangerous in earthquake or not."),
                         TextButton(
